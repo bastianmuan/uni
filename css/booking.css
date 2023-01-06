@@ -1,0 +1,47 @@
+.h4-sections {
+    color: #14697d;
+    border-bottom-color: #14697d !important;
+    border-bottom-style: double !important;
+    border-bottom-width: 4px !important;
+}
+
+.table-headers th {
+    border-color: #14697d !important;
+}
+
+.label-date:hover, .label-date:hover .bi-calendar-fill {
+    cursor: pointer;
+    color: #1a859e;
+}
+
+.bi-calendar-fill {
+    color: #14697d;
+}
+
+.form-submit {
+    padding: .375rem .75rem;
+    background-color: #14697d;
+    border-radius: .25rem;
+}
+
+.form-submit:hover {
+    background-color: #1a859e;
+}
+
+.ui-widget-header {
+    background: #14697d !important;
+    border: 1px solid #1a859e;
+}
+
+.table-disponibilitat td {
+    border-color: black !important;
+    width: 125px;
+    height: 70px;
+    padding: 15px;
+}
+
+.checkbox-input {
+    display: block;
+    width: 18px;
+	margin: 0 auto;
+}
