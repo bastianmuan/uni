@@ -28,8 +28,7 @@
                     <?php echo "<td><input name='name' placeholder='Enter the name' value='".$name."'></td>"; ?>
                 </div>
             </tr>
-            <tr>
-            </tr>
+ 
             <tr>
                 <div class="form-group">
                     <td><label>Description</label></td>
@@ -85,9 +84,9 @@
     <br />
     <canvas id="myChart"></canvas>
 
-    
+
     <script>
-            
+
         var ctx = document.getElementById("myChart").getContext("2d");
         var myChart = new Chart(ctx, {
         type: "line",

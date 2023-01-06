@@ -1,4 +1,4 @@
-<div class = "container">
+<div class="center">
     <?php 
     $userId = isset($_GET["id"]) ? $_GET["id"] : 0;
     $userDao = new UserDao();
@@ -32,12 +32,11 @@
         
         <table>
             <tr>
+            
                 <div class="form-group">
                     <td><label>Name</label></td>
                     <?php echo "<td><input name='name' placeholder='Enter users name' value='".$name."'></td>"; ?>
                 </div>
-            </tr>
-            <tr>
             </tr>
             <tr>
                 <div class="form-group">

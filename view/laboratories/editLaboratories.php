@@ -29,11 +29,9 @@
                 </div>
             </tr>
             <tr>
-            </tr>
-            <tr>
                 <div class="form-group">
                     <td><label>Description</label></td>
-                    <?php echo "<td><input name='description' required='required' class='form-control' placeholder='Enter the description' value='".$description."'></td>"; ?>
+                    <?php echo "<td><input name='description' value='".$description."'></td>"; ?>
                 </div>
             </tr>
             <tr>
