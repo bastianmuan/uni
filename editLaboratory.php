@@ -4,7 +4,7 @@
 ?>
 
 <html>
-  <?php include_once("view/common/head.php") ?>
+  <?php include_once("view/common/head-form.php") ?>
   <body>
     <?php 
       include_once("view/common/header.php");

@@ -20,11 +20,10 @@
                   <div class="form-group">
                       <label for="password">Contrasenya</label>
                       <input name="password" class="form-control" type="password" id="password_login" required>
-                      <div class="invalid-feedback">Incorrect.</div>
+                      <div class="invalid-feedback">Incorrecte.</div>
                   </div>
                   <input class="btn btn-primary w-100" type="submit" value="Identifica't">
 
-                  <!--<input type="submit" value="Submit">Identifica't</button>-->
                 </form>
               </aside>
             </div>

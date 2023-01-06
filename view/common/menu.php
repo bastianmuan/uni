@@ -7,9 +7,6 @@
     
     <div  class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="client-reserva.php">Disponibilitat</a>
-        </li>
         <?php if(Utils::isLogged()){ ?>
         <li class="nav-item">
           <a class="nav-link" href="bookings.php">Reserves</a>
@@ -44,7 +41,7 @@
       <?php 
         if(Utils::isLogged()){ 
           $userName = Utils::getSessionUser()->getName();
-          echo "Hola $userName";
+          echo "Hola, $userName";
         } ?>
     </div>
   </div>
