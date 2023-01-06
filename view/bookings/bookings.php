@@ -3,17 +3,22 @@
     $machineId = isset($_GET["machineId"]) ? $_GET["machineId"] : 0;
     $bookingDao = new BookingDao();
 
-    /*** Possible filtre de dates a aplicar en un futur ***/
     if(Utils::isAdmin()){
-      $startDate = "1900-01-01";
-      $endDate = "2024-01-01";
+      // Agafem la data de avui
+      $getDate = new DateTime();
+      $endDate = $getDate->format('Y-m-d');
+      $endDate = date("Y-m-d", strtotime($endDate . "+ 1 years"));
+      //Marquem que nomes podem veure en el cas de que siguem admins 5 anys enrrera.
+      $startDate = date("Y-m-d", strtotime($endDate . "- 5 years"));
+      var_dump($startDate);
+      var_dump($endDate);
     }else{
-      //TODO Actualitzar 30 dies enrere!
-      $startDate = "2022-12-02";
-      $endDate = "2023-01-02";
-      // Seria algo semblant a:
-      // $startDate = new DateTime().diff('d',30).format("Y-m-d");
-      // $endDate = new DateTime().format("Y-m-d");
+      // Agafem la data de avui
+      $getDate = new DateTime();
+      $endDate = $getDate->format('Y-m-d');
+      $endDate = date("Y-m-d", strtotime($endDate . "+ 1 days"));
+      //Marquem que nomes podem veure en el cas de que siguem usuaris 30 dies enrrera.
+      $startDate = date("Y-m-d", strtotime($endDate . "- 30 days"));
     }
 
     $user = Utils::getSessionUser();
