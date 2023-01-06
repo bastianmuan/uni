@@ -21,74 +21,132 @@
     $historyBookings = $bookingDao->getHistoryBookings($machineId, $startDate, $endDate); //History bookings!
 ?>
 
-
-
   <h1 class = "display-5">ACTIVE BOOKINGS</h1>
   <br>
   <a href="editBooking.php" class="btn btn-info btn-sm">Create booking</a>
   <br><br>
+
   <table class = "table table-striped">
     <thead>
-      <tr class = "info">
-        <th>Id</th>
-        <th>MACHINE_ID</th>
-        <th>MACHINE_NAME</th>
-        <th>LABORATORY_ID</th>
-        <th>LABORATORY_NAME</th>
-        <th>USER_Id</th>
-        <th>USER_NAME</th>
-        <th>USER_SURNAME</th>
-        <th>USER_EMAIL</th>
-      </tr>
+      <?php
+        if(Utils::isAdmin()) {
+          echo "
+          <tr class = 'info'>
+            <th style='text-align: center' >Reserva</th>
+            <th style='text-align: center' >IDMaquina</th>
+            <th style='text-align: center' >ID Lab</th>
+            <th style='text-align: center' >ID User</th>
+            <th style='text-align: center' >Nom</th>
+            <th style='text-align: center' >Cognom</th>
+            <th style='text-align: center' >Email</th>
+            <th style='text-align: center' >Data</th>
+            <th style='text-align: center' >Delete</th>
+          </tr>
+          ";
+        } else {
+          echo "
+          <tr class = 'info'>
+            <th style='text-align: center' >Nom Maquina</th>
+            <th style='text-align: center' >Nom Lab</th>
+            <th style='text-align: center' >Data</th>
+            <th style='text-align: center' >Delete</th>
+          </tr>
+          ";
+        }
+      ?>
     </thead>
+
     <?php
+      if(Utils::isAdmin()) {
         foreach($activeBookings as $booking){
           echo"
-          <tr>
+          <tr style='text-align: center' >
             <td>".$booking->getId()."</td>
             <td>".$booking->getMachineId()."</td>
-            <td>".$booking->getMachineName()."</td>
             <td>".$booking->getLaboratoryId()."</td>
-            <td>".$booking->getLaboratoryName()."</td>
             <td>".$booking->getBookingUser()->getUserId()."</td>
             <td>".$booking->getBookingUser()->getName()."</td>
             <td>".$booking->getBookingUser()->getSurname()."</td>
             <td>".$booking->getBookingUser()->getEmail()."</td>
-          </tr>";
+            <td>".$booking->getBookingDate()."</td>
+            <td>
+              <a href='actions.php?action=deleteBooking&id=".$booking->getId()."'class = 'btn btn-danger'> X </a>
+            </td>
+          </tr>
+          ";
         }
+      } else {
+        foreach($activeBookings as $booking){
+          echo"
+          <tr style='text-align: center' >
+            <td>".$booking->getMachineName()."</td>
+            <td>".$booking->getLaboratoryName()."</td>
+            <td>".$booking->getBookingDate()."</td>
+            <td>
+              <a href='actions.php?action=deleteBooking&id=".$booking->getId()."'class = 'btn btn-danger'> X </a>
+            </td>
+          </tr>
+          ";
+        }
+      }
     ?>
   </table>
 
   <h1 class = "display-5">HISTORY BOOKINGS</h1>
   <table class = "table table-striped">
-    <thead>
-      <tr class = "info">
-        <th>ID</th>
-        <th>MACHINE_ID</th>
-        <th>MACHINE_NAME</th>
-        <th>LABORATORY_ID</th>
-        <th>LABORATORY_NAME</th>
-        <th>USER_Id</th>
-        <th>USER_NAME</th>
-        <th>USER_SURNAME</th>
-        <th>USER_EMAIL</th>
-      </tr>
-    </thread>
+  <thead>
+      <?php
+        if(Utils::isAdmin()) {
+          echo "
+          <tr class = 'info'>
+            <th style='text-align: center' >Reserva</th>
+            <th style='text-align: center' >IDMaquina</th>
+            <th style='text-align: center' >ID Lab</th>
+            <th style='text-align: center' >ID User</th>
+            <th style='text-align: center' >Nom</th>
+            <th style='text-align: center' >Cognom</th>
+            <th style='text-align: center' >Email</th>
+            <th style='text-align: center' >Data</th>
+          </tr>
+          ";
+        } else {
+          echo "
+          <tr class = 'info'>
+            <th style='text-align: center' >Nom Maquina</th>
+            <th style='text-align: center' >Nom Lab</th>
+            <th style='text-align: center' >Data</th>
+          </tr>
+          ";
+        }
+      ?>
+    </thead>
     <?php
+      if(Utils::isAdmin()) {
         foreach($historyBookings as $booking){
           echo"
-          <tr>
+          <tr style='text-align: center' >
             <td>".$booking->getId()."</td>
             <td>".$booking->getMachineId()."</td>
-            <td>".$booking->getMachineName()."</td>
             <td>".$booking->getLaboratoryId()."</td>
-            <td>".$booking->getLaboratoryName()."</td>
             <td>".$booking->getBookingUser()->getUserId()."</td>
             <td>".$booking->getBookingUser()->getName()."</td>
             <td>".$booking->getBookingUser()->getSurname()."</td>
             <td>".$booking->getBookingUser()->getEmail()."</td>
-          </tr>";
+            <td>".$booking->getBookingDate()."</td>
+          </tr>
+          ";
         }
+      } else {
+        foreach($historyBookings as $booking){
+          echo"
+          <tr style='text-align: center' >
+            <td>".$booking->getMachineName()."</td>
+            <td>".$booking->getLaboratoryName()."</td>
+            <td>".$booking->getBookingDate()."</td>
+          </tr>
+          ";
+        }
+      }
     ?>
   </table>
 </div>

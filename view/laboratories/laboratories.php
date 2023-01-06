@@ -10,19 +10,19 @@
   <br><br>
   <table class = "table table-striped">
     <thead>
-      <tr class = "info">
-        <th>Id</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Status</th>
-        <th>Delete</th>
-        <th>Edit</th>
+      <tr class = "info" style='text-align: center' >
+        <th style='text-align: center' >Id</th>
+        <th style='text-align: center' >Name</th>
+        <th style='text-align: center' >Description</th>
+        <th style='text-align: center' >Status</th>
+        <th style='text-align: center' >Delete</th>
+        <th style='text-align: center' >Edit</th>
       </tr>
     </thead>
     <?php
         foreach($laboratories as $laboratory){
           echo "
-          <tr>
+          <tr style='text-align: center' >
             <td>".$laboratory->getId()."</td>
             <td>".$laboratory->getName()."</td>
             <td>".$laboratory->getDescription()."</td>

@@ -11,22 +11,22 @@
   <table class = "table table-striped" >
   <thead>
       <tr class = "info">
-        <th>Id</th>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Email</th>
-        <th>Role</th>
-        <th>RFID</th>
-        <th>Status</th>
-        <th>Delete</th>
-        <th>Edit</th>
+        <th style='text-align: center' >Id</th>
+        <th style='text-align: center' >Name</th>
+        <th style='text-align: center' >Surname</th>
+        <th style='text-align: center' >Email</th>
+        <th style='text-align: center' >Role</th>
+        <th style='text-align: center' >RFID</th>
+        <th style='text-align: center' >Status</th>
+        <th style='text-align: center' >Delete</th>
+        <th style='text-align: center' >Edit</th>
       </tr>
     </thead>
     <?php
     //TODO NO mostra el id com toca
         foreach($users as $user){
           echo "
-          <tr>
+          <tr style='text-align: center' >
             <td>".$user->getId()."</td>
             <td>".$user->getName()."</td>
             <td>".$user->getSurname()."</td>

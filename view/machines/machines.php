@@ -11,13 +11,13 @@
   <table class = "table table-striped" >
     <thead>
       <tr class = "info">
-        <th>Id</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Lab_Id</th>
-        <th>Status</th>
-        <th>Delete</th>
-        <th>Edit</th>
+        <th style='text-align: center' >Id</th>
+        <th style='text-align: center' >Name</th>
+        <th style='text-align: center' >Description</th>
+        <th style='text-align: center' >Lab_Id</th>
+        <th style='text-align: center' >Status</th>
+        <th style='text-align: center' >Delete</th>
+        <th style='text-align: center' >Edit</th>
       </tr>
     </thead>
     <?php
@@ -32,7 +32,7 @@
           }
           
           echo "
-          <tr>
+          <tr style='text-align: center' >
             <td>".$machine->getId()."</td>
             <td>".$machine->getName()."</td>
             <td>".$machine->getDescription()."</td>

@@ -9,7 +9,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #3f33f3;
+    background: #0dcaf0 !important;
     font-family: 'Montserrat', sans-serif;
     overflow-x:hidden;
 }
