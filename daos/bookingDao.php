@@ -2,7 +2,7 @@
 
 class BookingDao extends Dao{
 
-  public function getActiveBookingMachines($maquineId){
+  public function getActiveBookingMachines($machineId){
     /***
      * Consultem si hi ha reserves actives amb per aquesta màquina. Aquest mètode s'executa des del borrat d'una màquina.
      * No es permet eliminar màquines amb reserves actives. Primer s'haurà d'anular les reserves actives i posteriorment eliminar la màquina.
@@ -15,7 +15,6 @@ class BookingDao extends Dao{
     $totalRows = $stmt->get_result()->num_rows;
     $stmt->close();
     $conn->close();
-
     return $totalRows > 0;
   }
 
@@ -138,34 +137,32 @@ class BookingDao extends Dao{
     /*** Creació d'una nova reserva ***/
     
     //Control de paràmetres!
-    if(!isset($postBooking["machineId"]) || !isset($postBooking["bookingDate"])){
-      return;
+    if(!isset($postBooking["machineId"]) || !isset($postBooking["bookingDate"]) || !isset($postBooking["bookingHour"])){
+      return 3;
     }
-    
     
     //Control del bookingDate de tipus data i resetejar minuts i segons per les correctes consultes SQL, per si ens intenten colar per darrere un datetime no permés per interficie!
     try{
       $bookingDate =new DateTime($postBooking["bookingDate"]);
-      $hour = $bookingDate->format('H');
+
+      $hour = max(0, min(23,$postBooking["bookingHour"]));
       $bookingDate->setTime($hour,0,0,0);
       $bookingDateStr = $bookingDate->format('Y-m-d H:i:s');
       $startDateStr = $bookingDate->format('Y-m-d')." 00:00:00";
       $endDateStr = $bookingDate->format('Y-m-d')." 23:59:59";
     }catch (Exception $e) {
-      var_dump($e);
-      die;
-      return;
+      return 3;
     }
     
     //Controlem que hi hagi usuari a la sessió
     $userId = Utils::getSessionUser()->getId();
     if($userId == null){
-      return;
+      return 3;
     }
     
     //Control de dates!! S'ha de comprovar que per la data seleccionada, la màquina no estigui ocupada.
     if(!$this->isExecutableBooking($postBooking["machineId"], $userId, $bookingDateStr, $startDateStr, $endDateStr)){
-      return;
+      return 2;
     }
         
     //Control de machineId. S'ha de comprovar que la machineId existeix, està activa i està associada a un laboratori.
@@ -173,7 +170,7 @@ class BookingDao extends Dao{
     $machineDao = new MachineDao();
     $machine = $machineDao->getMachine($postBooking["machineId"]);
     if($machine == null || !$machine->getActive() || $machine->getLaboratoryId() == null){
-      return;
+      return 3;
     }
     
     //Control de laboratori. S'ha de comprovar que el laboratory associat a la màquina existeixi i estigui actiu.
@@ -181,14 +178,14 @@ class BookingDao extends Dao{
     //Obtenim les dades del laboratori!
     $laboratory = $laboratoryDao->getLaboratory($machine->getLaboratoryId());
     if($laboratory == null || !$laboratory->getActive()){
-      return;
+      return 3;
     }
     
     //Obtenim dades de l'usuari
     $userDao = new UserDao();
     $user = $userDao->getUserById($userId);
     if($user == null){
-      return;
+      return 3;
     }
     
     $machineId = $machine->getId();
@@ -215,7 +212,7 @@ class BookingDao extends Dao{
 
     $conn->commit();
     $conn->close();
-    return $lastId;
+    return 1;
   }
 
   public function startBooking($param){
@@ -309,6 +306,7 @@ class BookingDao extends Dao{
     $stmt->close();
     $conn->commit();
     $conn->close();
+    return 1;
   }
 
   private function isExecutableBooking($machineId, $userId, $date, $startDate, $endDate){
@@ -335,6 +333,35 @@ class BookingDao extends Dao{
     $stmt->close();
     $conn->close();
     return $totalRows < 3;
+  }
+
+  public function getAvailableHours($date, $machineId){
+    try{ 
+      $conn = $this->getConnection();
+      $sql = "select hour(booking_date) as hour FROM bookings where year(booking_date) = ? and month(booking_date) = ? and day(booking_date) = ? and machine_id = ?";
+      $stmt = $conn->prepare($sql); 
+      $arrDate = explode("-",$date);
+      $year = $arrDate[0];
+      $month = $arrDate[1];
+      $day = $arrDate[2];
+      $stmt->bind_param("iiii", $year, $month, $day, $machineId);
+      $stmt->execute();
+      $results = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+          
+      $a1 = [];
+      $a2 = [];
+      foreach($results as $result){
+        array_push($a2, $result["hour"]);
+      }
+      for($i=0; $i < 24; $i++){
+        array_push($a1, $i);
+      }
+
+      return $response = array_diff($a1, $a2); 
+    }catch(Exception $e){
+      return [];
+    }
+
   }
   
 }

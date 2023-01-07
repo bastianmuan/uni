@@ -105,7 +105,7 @@ class MachineDao extends Dao{
     /* Control de reserves actives d'una màquina. No es permet borrar la màquina */
     $hasBookingMachines = $bookingDao->getActiveBookingMachines($id); 
     if($hasBookingMachines){
-      return;
+      return 0;
     }
 
     $conn = $this->getConnection();  
@@ -116,6 +116,7 @@ class MachineDao extends Dao{
     $stmt->close();
     $conn->commit();
     $conn->close();
+    return 1;
   }
 }
 

@@ -89,7 +89,7 @@ class LaboratoryDao extends Dao{
     /* Control de reserves actives d'un laboratory. No es permet borrar el laboratory */
     $hasBookingLaboratories = $bookingDao->getActiveBookingLaboratories($id); 
     if($hasBookingLaboratories){
-      return;
+      return 0;
     }
 
     $conn = $this->getConnection();  
@@ -100,6 +100,7 @@ class LaboratoryDao extends Dao{
     $stmt->close();
     $conn->commit();
     $conn->close();
+    return 1;
   }
 }
 

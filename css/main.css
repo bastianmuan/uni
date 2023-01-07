@@ -56,15 +56,17 @@ body{
     padding: 10px;
   }
 
-  table {
-    border-collapse:separate; 
-    border-spacing: 0 1em;
-  }
-
   td {
     padding: 0 4px;
   }
 
+  td.odd{
+    background-color: #FFF;
+  }
+
+  td.even{
+    background-color: #F0F0F0;
+  }
 /*MEDIA QUERIES PER A PANTALLA AMPLA*/
 
 @media(max-width:1200px){
@@ -85,3 +87,9 @@ body{
 .loggedName{ float: left; line-height: 39px; font-weight: bold;}
 .logout{ float: left; }
 .container { min-height: calc(100% - 132px) !important; }
+.alert-dismissable .close, .alert-dismissible .close{ top:-7 !important;}
+.inactive{ color:#A00; }
+.active{ color:#45bb45; }
+
+.back{ font-size: 18px; cursor:pointer;}
+.back::before{ font-size: 20px !important; color: #337ab7 !important; margin-right: 10px;}

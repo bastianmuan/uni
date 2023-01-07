@@ -190,4 +190,4 @@ form.addEventListener('submit', function(ev){
         alert("Les dades introduides no són correctes!");
     }
 });
- 
+

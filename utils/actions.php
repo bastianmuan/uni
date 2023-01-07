@@ -31,8 +31,8 @@ class Actions{
   public static function createMachine($params){
     Actions::requireAdmin();
     $dao = new MachineDao();
-    $dao->createMachine($params);
-    header('Location: '.URL_MACHINES);
+    $response = $dao->createMachine($params);
+    header('Location: '.URL_MACHINES."?c=".$response);
   }
 
   public static function updateMachine($params){
@@ -45,15 +45,15 @@ class Actions{
   public static function deleteMachine($params){
     Actions::requireAdmin();
     $dao = new MachineDao();
-    $dao->deleteMachine($params["id"]);
-    header('Location: '.URL_MACHINES);
+    $response = $dao->deleteMachine($params["id"]);
+    header('Location: '.URL_MACHINES.'?d='.$response);
   }
 
   public static function createLaboratory($params){
     Actions::requireAdmin();
     $dao = new LaboratoryDao();
-    $dao->createLaboratory($params);
-    header('Location: '.URL_LABORATORIES);
+    $response = $dao->createLaboratory($params);
+    header('Location: '.URL_LABORATORIES."?c=".$response);
   }
 
   public static function updateLaboratory($params){
@@ -66,15 +66,15 @@ class Actions{
   public static function deleteLaboratory($params){
     Actions::requireAdmin();
     $dao = new LaboratoryDao();
-    $dao->deleteLaboratory($params["id"]);
-    header('Location: '.URL_LABORATORIES);
+    $response = $dao->deleteLaboratory($params["id"]);
+    header('Location: '.URL_LABORATORIES."?d=".$response);
   }
 
   public static function createUser($params){
     Actions::requireAdmin();
     $dao = new UserDao();
-    $dao->createUser($params);
-    header('Location: '.URL_USERS);
+    $response = $dao->createUser($params);
+    header('Location: '.URL_USERS."?c=".$response);
   }
 
   public static function updateUser($params){
@@ -88,14 +88,19 @@ class Actions{
     Actions::requireAdmin();
     $dao = new UserDao();
     $dao->deleteUser($params["id"]);
+
+    //Si l'usuari que s'elimina és ell mateix. Fem logout.
+    if(Utils::getSessionUser()->getId() == $params["id"]){
+      Utils::logout();
+    }
     header('Location: '.URL_USERS);
   }
 
   public static function createBooking($params){
     Actions::requireLogin();
     $dao = new BookingDao();
-    $dao->createBooking($params);
-    header('Location: '.URL_BOOKINGS);
+    $response = $dao->createBooking($params);
+    header('Location: '.URL_BOOKINGS."?c=".$response);
   }
 
   public static function startBooking($param){
@@ -106,6 +111,13 @@ class Actions{
   public static function stopBooking($param){
     $dao = new BookingDao();
     return $dao->endBooking($param);
+  }
+
+  public static function deleteBooking($params){
+    Actions::requireLogin();
+    $dao = new BookingDao();
+    $response = $dao->deleteBooking($params["id"]);
+    header('Location: '.URL_BOOKINGS."?d=".$response);
   }
 }
 ?>

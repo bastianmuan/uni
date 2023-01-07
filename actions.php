@@ -15,6 +15,10 @@ switch ($action) {
     Actions::createBooking($_POST);
     break;
 
+  case "deleteBooking":
+    Actions::deleteBooking($_GET);
+    break;
+
   case "createMachine":
     Actions::createMachine($_POST);
     break;
